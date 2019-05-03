@@ -1,9 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strconv"
-	"strings"
 )
 
 var channels map[string]string
@@ -11,14 +12,38 @@ var channels map[string]string
 func prepareChannels(){
 	channels = make(map[string]string)
 
-	channels["general"] = "CBSH247U7"
+	channels["general"] = "CBSH247U7"            //Place channel codes here
 	channels["direct_test"] = "DHXMS0VHV"
+}
+
+func getToken(fileName string) (token string){
+	file, err := os.Open(fileName) // just pass the file name that contains the token
+
+	if err != nil {
+		fmt.Print(err)
+	}
+	defer file.Close()
+
+	scanner :=  bufio.NewScanner(file)
+	scanner.Split(bufio.ScanLines)
+
+	scanner.Scan()
+	token = scanner.Text()
+
+	file.Close()
+	return
 }
 
 func main() {
 	fmt.Println("### SLACK BOT INITIALIZING - BEEP BOOP ###")
+	fmt.Println(os.Args)
 
-	token := "xoxb-399682684981-606209338640-305lJnIbNinj26y8z2RKi7q0"
+	if len(os.Args) != 2 {
+		fmt.Println("Please enter the file name which contains the auth token")
+		os.Exit(-1)
+	}
+
+	token := getToken(os.Args[1])
 
 	respObj := SlackRTMStart(token)
 	wsocket, _ := SlackWebsocketConnect(respObj)
@@ -39,11 +64,9 @@ func main() {
 	message.Type = "message"
 	message.Channel = channels["direct_test"]
 
-	fmt.Println("WHAT IS MESSAGE: ")
-
 	SlackWrite(wsocket, message)
 
-	go SlackQuota(wsocket)
+	//go SlackQuota(wsocket)
 
 	for {
 		message, err := SlackRead(wsocket)
@@ -59,16 +82,8 @@ func main() {
 			fmt.Println("Text: " + message.Text)
 		}
 
-		if strings.Contains(message.Text, "slacking_off"){
-			if strings.Contains(message.Text, "quote"){
-				message.Text = "'I would totally beat my employees. Not like hit them with my fists or anything, just smack them over the nose with a rolled up newspaper'"
-				message.Type = "message"
-				message.Channel = channels["general"]
-
-				SlackWrite(wsocket, message)
-			}
-		}
-
-		fmt.Println("Slack Message: " + message.Text)
+		/*
+		Catch and reply to your input here
+		 */
 	}
 }

@@ -68,7 +68,6 @@ func SlackWebsocketConnect(response responseRtmStart)(wsocket *websocket.Conn, i
 
 	requestheader := http.Header{
 		"Origin": {"https://api.slack.com/"} ,
-
 		"Sec-WebSocket-Extensions": {"permessage-deflate; client_max_window_bits, x-webkit-deflate-frame"} ,
 	}
 
