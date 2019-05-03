@@ -4,4 +4,4 @@ Yet another slack bot template! Thanks to https://github.com/rapidloop/mybot for
 Usage: 
 
 - Place your slack authorization token in a text file and pass that file name in as a program argument
-- Fill out the channel coes and the message handling to your liking
+- Fill out the channel codes and the message handling to your liking
