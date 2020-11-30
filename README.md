@@ -1,5 +1,5 @@
 # not_another_slackbot
-Yet another slack bot template! Thanks to https://github.com/rapidloop/mybot for reference material for this slack bot. This particular slack bot uses github.com/gorilla/websocket for the websocket wrapper. Fork, copy, redistribute this code to your hearts content!
+Yet another slack bot template! Thanks to https://github.com/rapidloop/mybot for reference material. This particular slack bot uses github.com/gorilla/websocket for the websocket wrapper. Fork, copy, redistribute this code to your hearts content!
 
 Usage: 
 
