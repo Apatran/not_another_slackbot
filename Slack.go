@@ -107,7 +107,7 @@ func SlackQuota(wsocket *websocket.Conn){
 
 	for{
 		message.Id = 0
-		message.Text = ":eggplant:"
+		message.Text = "Hello"
 		message.Type = "message"
 		message.Channel = channels["general"]
 
